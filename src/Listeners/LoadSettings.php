@@ -8,18 +8,9 @@ use Flarum\Settings\SettingsRepositoryInterface;
 
 class LoadSettings
 {
-	/**
-	 * @var SettingsRepositoryInterface
-	 */
-	protected $settings;
-
-	/**
-	 * @param SettingsRepositoryInterface $settings
-	 */
-	public function __construct(SettingsRepositoryInterface $settings)
-	{
-		$this->settings = $settings;
-	}
+	public function __construct(protected SettingsRepositoryInterface $settings)
+    {
+    }
 
 	/**
 	 * Get the setting values from the database and make them available
