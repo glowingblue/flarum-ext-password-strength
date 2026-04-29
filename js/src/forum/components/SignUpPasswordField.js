@@ -22,85 +22,100 @@ const prfx = `${slug}.forum.strengthLabels`;
 const settings = (key) => app.forum.attribute(`${slug}.${key}`);
 
 export default class SignUpPasswordField extends Component {
-  oninit(vnode) {
-    super.oninit(vnode);
+	oninit(vnode) {
+		super.oninit(vnode);
 
-    this.strengthLabel = new Stream('');
-    this.passwordScore = new Stream(undefined);
-    this.strengthColor = new Stream('');
-  }
+		this.strengthLabel = new Stream('');
+		this.passwordScore = new Stream(undefined);
+		this.strengthColor = new Stream('');
+	}
 
-  view() {
-    const { parent_this, showingPassword, hasConfirmFiled, isConfirmFiled } = this.attrs;
+	view() {
+		const { parent_this, showingPassword, hasConfirmFiled, isConfirmFiled } = this.attrs;
 
-    return (
-      // This markup is copied from `flarum/components/LogInModal` and then
-      // some things have been added.
-      // !!! Please check for updates regularly !!!
+		return (
+			// This markup is copied from `flarum/components/LogInModal` and then
+			// some things have been added.
+			// !!! Please check for updates regularly !!!
 
-      <div className="Form-group PasswordField">
-        <input
-          className={`FormControl ${settings('enablePasswordToggle') ? 'togglable' : ''}`}
-          name={isConfirmFiled ? 'confirmPassword' : 'password'}
-          type={showingPassword() ? 'text' : 'password'}
-          placeholder={
-            isConfirmFiled ? t('nearata-signup-confirm-password.forum.field_placeholder') : extractText(t('core.forum.sign_up.password_placeholder'))
-          }
-          value={isConfirmFiled ? parent_this.confirmPassword() : parent_this.password()}
-          disabled={parent_this.loading}
-          oninput={this.inputHandler.bind(this)}
-          style={{
-            color: settings('enableInputColor') && !showingPassword() && (!hasConfirmFiled || isConfirmFiled) ? this.strengthColor() : undefined,
-            borderColor: settings('enableInputBorderColor') && (!hasConfirmFiled || isConfirmFiled) ? this.strengthColor() : undefined,
-          }}
-        />
-        {settings('enablePasswordToggle') ? <EyeButton showing={showingPassword} /> : null}
-        {!hasConfirmFiled || isConfirmFiled ? (
-          <StrengthIndicator score={this.passwordScore()} label={this.strengthLabel()} color={this.strengthColor()} />
-        ) : null}
-      </div>
-    );
-  }
+			<div className='Form-group PasswordField'>
+				<input
+					className={`FormControl ${settings('enablePasswordToggle') ? 'togglable' : ''}`}
+					name={isConfirmFiled ? 'confirmPassword' : 'password'}
+					type={showingPassword() ? 'text' : 'password'}
+					placeholder={
+						isConfirmFiled
+							? t('nearata-signup-confirm-password.forum.field_placeholder')
+							: extractText(t('core.forum.sign_up.password_placeholder'))
+					}
+					value={isConfirmFiled ? parent_this.confirmPassword() : parent_this.password()}
+					disabled={parent_this.loading}
+					oninput={this.inputHandler.bind(this)}
+					style={{
+						color:
+							settings('enableInputColor') &&
+							!showingPassword() &&
+							(!hasConfirmFiled || isConfirmFiled)
+								? this.strengthColor()
+								: undefined,
+						borderColor:
+							settings('enableInputBorderColor') &&
+							(!hasConfirmFiled || isConfirmFiled)
+								? this.strengthColor()
+								: undefined,
+					}}
+				/>
+				{settings('enablePasswordToggle') ? <EyeButton showing={showingPassword} /> : null}
+				{!hasConfirmFiled || isConfirmFiled ? (
+					<StrengthIndicator
+						score={this.passwordScore()}
+						label={this.strengthLabel()}
+						color={this.strengthColor()}
+					/>
+				) : null}
+			</div>
+		);
+	}
 
-  inputHandler(e) {
-    const { parent_this, isConfirmFiled } = this.attrs;
+	inputHandler(e) {
+		const { parent_this, isConfirmFiled } = this.attrs;
 
-    const password = e.target.value;
+		const password = e.target.value;
 
-    if (isConfirmFiled) {
-      parent_this.confirmPassword(password);
-    } else {
-      parent_this.password(password);
-    }
+		if (isConfirmFiled) {
+			parent_this.confirmPassword(password);
+		} else {
+			parent_this.password(password);
+		}
 
-    if (password) {
-      // Get the score of the password strength
-      let { score } = zxcvbn(password);
-      this.passwordScore(score);
+		if (password) {
+			// Get the score of the password strength
+			let { score } = zxcvbn(password);
+			this.passwordScore(score);
 
-      // Define strength color & label
-      switch (score) {
-        case 0:
-        case 1:
-          this.strengthLabel(t(`${prfx}.weak`));
-          this.strengthColor(`rgb(${settings('weakColor')})`);
-          break;
+			// Define strength color & label
+			switch (score) {
+				case 0:
+				case 1:
+					this.strengthLabel(t(`${prfx}.weak`));
+					this.strengthColor(`rgb(${settings('weakColor')})`);
+					break;
 
-        case 2:
-        case 3:
-          this.strengthLabel(t(`${prfx}.medium`));
-          this.strengthColor(`rgb(${settings('mediumColor')})`);
-          break;
+				case 2:
+				case 3:
+					this.strengthLabel(t(`${prfx}.medium`));
+					this.strengthColor(`rgb(${settings('mediumColor')})`);
+					break;
 
-        case 4:
-          this.strengthLabel(t(`${prfx}.strong`));
-          this.strengthColor(`rgb(${settings('strongColor')})`);
-          break;
-      }
-    } else {
-      this.passwordScore(undefined);
-      this.strengthLabel('');
-      this.strengthColor(undefined);
-    }
-  }
+				case 4:
+					this.strengthLabel(t(`${prfx}.strong`));
+					this.strengthColor(`rgb(${settings('strongColor')})`);
+					break;
+			}
+		} else {
+			this.passwordScore(undefined);
+			this.strengthLabel('');
+			this.strengthColor(undefined);
+		}
+	}
 }
