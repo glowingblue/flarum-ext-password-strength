@@ -8,7 +8,7 @@
  */
 
 import Component from 'flarum/common/Component';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 
 export default class EyeButton extends Component {
   oninit(vnode) {
@@ -19,7 +19,7 @@ export default class EyeButton extends Component {
     const { showing } = this.attrs;
     return (
       <span className="EyeButton" onclick={() => showing(!showing())}>
-        {icon(`fas fa-eye${showing() ? '-slash' : ''}`)}
+        <Icon name={`fas fa-eye${showing() ? '-slash' : ''}`} />
       </span>
     );
   }
