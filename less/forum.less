@@ -50,8 +50,8 @@
 		justify-content: space-between;
 
 		.StrengthPill {
-			background-color: fade(@control-color, 30%);
-			border-radius: @border-radius;
+			background-color: var(--control-color-fade-30);
+			border-radius: var(--border-radius);
 			width: 31%;
 			padding: 2.5px;
 		}
@@ -66,4 +66,12 @@
 			padding-left: 13px;
 		}
 	}
+}
+
+
+[data-theme^=light] {
+  --control-color-fade-30: fade(@control-color-light, 30%);
+}
+[data-theme^=dark] {
+  --control-color-fade-30: fade(@control-color-dark, 30%);
 }
