@@ -10,8 +10,6 @@
 
 import app from 'flarum/common/app';
 import { extend } from 'flarum/common/extend';
-import LogInModal from 'flarum/forum/components/LogInModal';
-import SignUpModal from 'flarum/forum/components/SignUpModal';
 import Stream from 'flarum/common/utils/Stream';
 import { slug } from '../common';
 import LogInPasswordField from './components/LogInPasswordField';
@@ -21,16 +19,16 @@ app.initializers.add(slug, () => {
   function extendOninit() {
     this.showingPassword = new Stream(false);
   }
-  extend(LogInModal.prototype, 'oninit', extendOninit);
-  extend(SignUpModal.prototype, 'oninit', extendOninit);
+  extend('flarum/forum/components/LogInModal', 'oninit', extendOninit);
+  extend('flarum/forum/components/SignUpModal', 'oninit', extendOninit);
 
-  extend(LogInModal.prototype, 'fields', function (items) {
+  extend('flarum/forum/components/LogInModal', 'fields', function (items) {
     if (app.forum.attribute(`${slug}.enablePasswordToggle`) && items.has('password')) {
       items.setContent('password', <LogInPasswordField parent_this={this} showingPassword={this.showingPassword.bind(this)} />);
     }
   });
 
-  extend(SignUpModal.prototype, 'fields', function (items) {
+  extend('flarum/forum/components/SignUpModal', 'fields', function (items) {
     if (!this.attrs.token) {
       const hasConfirmFiled = items.has('nearataConfirmPassword') && this.confirmPassword !== undefined;
 

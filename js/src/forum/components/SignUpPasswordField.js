@@ -54,9 +54,7 @@ export default class SignUpPasswordField extends Component {
             borderColor: settings('enableInputBorderColor') && (!hasConfirmFiled || isConfirmFiled) ? this.strengthColor() : undefined,
           }}
         />
-
         {settings('enablePasswordToggle') ? <EyeButton showing={showingPassword} /> : null}
-
         {!hasConfirmFiled || isConfirmFiled ? (
           <StrengthIndicator score={this.passwordScore()} label={this.strengthLabel()} color={this.strengthColor()} />
         ) : null}
