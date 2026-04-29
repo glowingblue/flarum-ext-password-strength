@@ -17,7 +17,7 @@
 
 namespace GlowingBlue\PasswordStrength;
 
-use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Api\Resource;
 use Flarum\Extend;
 
 $prefix = 'glowingblue-password-strength';
@@ -41,6 +41,6 @@ return [
 		->serializeToForum("$prefix.enableInputBorderColor", "$prefix.enableInputBorderColor", 'boolVal')
 		->serializeToForum("$prefix.enablePasswordToggle", "$prefix.enablePasswordToggle", 'boolVal'),
 
-	(new Extend\ApiSerializer(ForumSerializer::class))
-		->attributes(Listeners\LoadSettings::class),
+	(new Extend\ApiResource(Resource\ForumResource::class))
+		->fields(Listeners\LoadSettings::class),
 ];
