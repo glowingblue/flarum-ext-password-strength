@@ -35,8 +35,18 @@
     "require": {
         "flarum/core": "^2.0.0-beta"
     },
+    "require-dev": {
+        "flarum/testing": "^2.0@beta"
+    },
     "conflict": {
         "therealsujitk/flarum-ext-show-password": "*"
+    },
+    "scripts": {
+        "test": [
+            "@test:integration"
+        ],
+        "test:setup": "@php tests/integration/setup.php",
+        "test:integration": "phpunit -c tests/phpunit.integration.xml"
     },
     "autoload": {
         "psr-4": {
