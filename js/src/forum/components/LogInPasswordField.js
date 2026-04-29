@@ -15,29 +15,29 @@ import EyeButton from './EyeButton';
 const t = app.translator.trans.bind(app.translator);
 
 export default class LogInPasswordField extends Component {
-	oninit(vnode) {
-		super.oninit(vnode);
-	}
+  oninit(vnode) {
+    super.oninit(vnode);
+  }
 
-	view() {
-		const { parent_this, showingPassword } = this.attrs;
+  view() {
+    const { parent_this, showingPassword } = this.attrs;
 
-		return (
-			// This markup is copied from `flarum/components/LogInModal` and then
-			// some things have been added.
-			// !!! Please check for updates regularly !!!
+    return (
+      // This markup is copied from `flarum/components/LogInModal` and then
+      // some things have been added.
+      // !!! Please check for updates regularly !!!
 
-			<div className='Form-group PasswordField'>
-				<input
-					className='FormControl togglable'
-					name='password'
-					type={showingPassword() ? 'text' : 'password'}
-					placeholder={extractText(t('core.forum.log_in.password_placeholder'))}
-					bidi={parent_this.password}
-					disabled={parent_this.loading}
-				/>
-				<EyeButton showing={showingPassword} />
-			</div>
-		);
-	}
+      <div className="Form-group PasswordField">
+        <input
+          className="FormControl togglable"
+          name="password"
+          type={showingPassword() ? 'text' : 'password'}
+          placeholder={extractText(t('core.forum.log_in.password_placeholder'))}
+          bidi={parent_this.password}
+          disabled={parent_this.loading}
+        />
+        <EyeButton showing={showingPassword} />
+      </div>
+    );
+  }
 }

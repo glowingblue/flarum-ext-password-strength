@@ -18,49 +18,38 @@ import LogInPasswordField from './components/LogInPasswordField';
 import SignUpPasswordField from './components/SignUpPasswordField';
 
 app.initializers.add(slug, () => {
-	function extendOninit() {
-		this.showingPassword = new Stream(false);
-	}
-	extend(LogInModal.prototype, 'oninit', extendOninit);
-	extend(SignUpModal.prototype, 'oninit', extendOninit);
+  function extendOninit() {
+    this.showingPassword = new Stream(false);
+  }
+  extend(LogInModal.prototype, 'oninit', extendOninit);
+  extend(SignUpModal.prototype, 'oninit', extendOninit);
 
-	extend(LogInModal.prototype, 'fields', function (items) {
-		if (app.forum.attribute(`${slug}.enablePasswordToggle`) && items.has('password')) {
-			items.setContent(
-				'password',
-				<LogInPasswordField
-					parent_this={this}
-					showingPassword={this.showingPassword.bind(this)}
-				/>,
-			);
-		}
-	});
+  extend(LogInModal.prototype, 'fields', function (items) {
+    if (app.forum.attribute(`${slug}.enablePasswordToggle`) && items.has('password')) {
+      items.setContent('password', <LogInPasswordField parent_this={this} showingPassword={this.showingPassword.bind(this)} />);
+    }
+  });
 
-	extend(SignUpModal.prototype, 'fields', function (items) {
-		if (!this.attrs.token) {
-			const hasConfirmFiled =
-				items.has('nearataConfirmPassword') && this.confirmPassword !== undefined;
+  extend(SignUpModal.prototype, 'fields', function (items) {
+    if (!this.attrs.token) {
+      const hasConfirmFiled = items.has('nearataConfirmPassword') && this.confirmPassword !== undefined;
 
-			items.setContent(
-				'password',
-				<SignUpPasswordField
-					parent_this={this}
-					showingPassword={this.showingPassword.bind(this)}
-					hasConfirmFiled={hasConfirmFiled}
-				/>,
-			);
+      items.setContent(
+        'password',
+        <SignUpPasswordField parent_this={this} showingPassword={this.showingPassword.bind(this)} hasConfirmFiled={hasConfirmFiled} />
+      );
 
-			if (hasConfirmFiled) {
-				items.setContent(
-					'nearataConfirmPassword',
-					<SignUpPasswordField
-						parent_this={this}
-						showingPassword={this.showingPassword.bind(this)}
-						hasConfirmFiled={hasConfirmFiled}
-						isConfirmFiled={true}
-					/>,
-				);
-			}
-		}
-	});
+      if (hasConfirmFiled) {
+        items.setContent(
+          'nearataConfirmPassword',
+          <SignUpPasswordField
+            parent_this={this}
+            showingPassword={this.showingPassword.bind(this)}
+            hasConfirmFiled={hasConfirmFiled}
+            isConfirmFiled={true}
+          />
+        );
+      }
+    }
+  });
 });

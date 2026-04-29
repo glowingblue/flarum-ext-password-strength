@@ -11,16 +11,16 @@ import Component from 'flarum/common/Component';
 import icon from 'flarum/common/helpers/icon';
 
 export default class EyeButton extends Component {
-	oninit(vnode) {
-		super.oninit(vnode);
-	}
+  oninit(vnode) {
+    super.oninit(vnode);
+  }
 
-	view() {
-		const { showing } = this.attrs;
-		return (
-			<span className='EyeButton' onclick={() => showing(!showing())}>
-				{icon(`fas fa-eye${showing() ? '-slash' : ''}`)}
-			</span>
-		);
-	}
+  view() {
+    const { showing } = this.attrs;
+    return (
+      <span className="EyeButton" onclick={() => showing(!showing())}>
+        {icon(`fas fa-eye${showing() ? '-slash' : ''}`)}
+      </span>
+    );
+  }
 }
