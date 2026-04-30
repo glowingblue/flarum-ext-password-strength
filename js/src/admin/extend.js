@@ -9,7 +9,7 @@ const prfx = `${slug}.admin.settings`;
 
 export default [
 	new Extend.Admin()
-		.setting(() => (
+		.customSetting(() => (
 			<div className='Form-group'>
 				<label className='psHeading'>{t(`${prfx}.colorOptions`)}</label>
 				<div className='helpText psHelpText'>
@@ -33,7 +33,7 @@ export default [
 			type: 'text',
 			label: t(`${prfx}.strongColor`),
 		}))
-		.setting(() => (
+		.customSetting(() => (
 			<div className='Form-group'>
 				<label className='psHeading'>{t(`${prfx}.otherOptions`)}</label>
 			</div>
