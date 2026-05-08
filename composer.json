@@ -36,17 +36,29 @@
         "flarum/core": "^2.0.0"
     },
     "require-dev": {
+        "flarum/phpstan": "^2.0.0",
         "flarum/testing": "^2.0.0"
     },
     "conflict": {
         "therealsujitk/flarum-ext-show-password": "*"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
         "test": [
             "@test:integration"
         ],
         "test:setup": "@php tests/integration/setup.php",
-        "test:integration": "phpunit -c tests/phpunit.integration.xml"
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "analyse:phpstan": "phpstan analyse",
+        "clear-cache:phpstan": "phpstan clear-result-cache"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "test:integration": "Runs all integration tests.",
+        "analyse:phpstan": "Run static analysis",
+        "clear-cache:phpstan": "Clear PHPStan result cache"
     },
     "autoload": {
         "psr-4": {
