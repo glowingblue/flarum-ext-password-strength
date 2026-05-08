@@ -33,7 +33,7 @@
         "email": "dev@glowingblue.com"
     },
     "require": {
-        "flarum/core": "^2.0.0",
+        "flarum/core": "^2.0.0"
     },
     "require-dev": {
         "flarum/testing": "^2.0.0"
