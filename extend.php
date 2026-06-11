@@ -17,7 +17,6 @@
 
 namespace GlowingBlue\PasswordStrength;
 
-use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
 
 $prefix = 'glowingblue-password-strength';
@@ -25,7 +24,8 @@ $prefix = 'glowingblue-password-strength';
 return [
 	(new Extend\Frontend('forum'))
 		->css(__DIR__ . '/less/forum.less')
-		->js(__DIR__ . '/js/dist/forum.js'),
+		->js(__DIR__ . '/js/dist/forum.js')
+		->jsDirectory(__DIR__ . '/js/dist/forum'),
 
 	(new Extend\Frontend('admin'))
 		->css(__DIR__ . '/less/admin.less')
@@ -34,13 +34,16 @@ return [
 	(new Extend\Locales(__DIR__ . '/locale')),
 
 	(new Extend\Settings())
+		->default("$prefix.weakColor", '#ff8180')
+		->default("$prefix.mediumColor", '#f9c575')
+		->default("$prefix.strongColor", '#6fc7a4')
+		->default("$prefix.enableInputColor", false)
+		->default("$prefix.enableInputBorderColor", true)
+		->default("$prefix.enablePasswordToggle", true)
 		->serializeToForum("$prefix.weakColor", "$prefix.weakColor")
 		->serializeToForum("$prefix.mediumColor", "$prefix.mediumColor")
 		->serializeToForum("$prefix.strongColor", "$prefix.strongColor")
 		->serializeToForum("$prefix.enableInputColor", "$prefix.enableInputColor", 'boolVal')
 		->serializeToForum("$prefix.enableInputBorderColor", "$prefix.enableInputBorderColor", 'boolVal')
 		->serializeToForum("$prefix.enablePasswordToggle", "$prefix.enablePasswordToggle", 'boolVal'),
-
-	(new Extend\ApiSerializer(ForumSerializer::class))
-		->attributes(Listeners\LoadSettings::class),
 ];

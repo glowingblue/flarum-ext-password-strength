@@ -1,64 +1,73 @@
 {
-  "name": "glowingblue/password-strength",
-  "description": "Low-budget password strength estimation for your Flarum forum.",
-  "keywords": [
-    "flarum",
-    "password",
-    "strength",
-    "checker"
-  ],
-  "type": "flarum-extension",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Hasan Özbey",
-      "email": "hasanoozbey@gmail.com",
-      "homepage": "https://github.com/the-turk"
+    "name": "glowingblue/password-strength",
+    "description": "Low-budget password strength estimation for your Flarum forum.",
+    "keywords": [
+        "flarum",
+        "password",
+        "strength",
+        "checker"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "GlowingBlue",
+            "email": "dev@glowingblue.com",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/glowingblue/flarum-ext-password-strength/issues",
+        "source": "https://github.com/glowingblue/flarum-ext-password-strength",
+        "forum": "https://discuss.flarum.org/d/26191-gb-password-strength",
+        "email": "dev@glowingblue.com"
     },
-    {
-      "name": "Rafael Horvat",
-      "email": "rafael.horvat@icloud.com",
-      "role": "Developer"
+    "require": {
+        "flarum/core": "^2.0.0"
     },
-    {
-      "name": "GlowingBlue",
-      "email": "dev@glowingblue.com",
-      "role": "Maintainer"
-    }
-  ],
-  "support": {
-    "issues": "https://github.com/glowingblue/flarum-ext-password-strength/issues",
-    "source": "https://github.com/glowingblue/flarum-ext-password-strength",
-    "forum": "https://discuss.flarum.org/d/26191-gb-password-strength",
-    "email": "dev@glowingblue.com"
-  },
-  "require": {
-    "flarum/core": "^1.2.0"
-  },
-  "conflict": {
-    "therealsujitk/flarum-ext-show-password": "*"
-  },
-  "autoload": {
-    "psr-4": {
-      "GlowingBlue\\PasswordStrength\\": "src/"
-    }
-  },
-  "extra": {
-    "flarum-extension": {
-      "title": "GB Password Strength",
-      "category": "feature",
-      "optional-dependencies": [
-        "nearata/flarum-ext-signup-confirm-password",
-        "ianm/twofactor"
-      ],
-      "icon": {
-        "name": "fas fa-user-shield",
-        "backgroundColor": "#00a7e3",
-        "color": "#fff"
-      }
+    "require-dev": {
+        "flarum/phpstan": "^2.0.0",
+        "flarum/testing": "^2.0.0"
     },
-    "extiverse": {
-      "discuss": "https://discuss.flarum.org/d/26191"
+    "conflict": {
+        "therealsujitk/flarum-ext-show-password": "*"
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true,
+    "scripts": {
+        "test": [
+            "@test:integration"
+        ],
+        "test:setup": "@php tests/integration/setup.php",
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "analyse:phpstan": "phpstan analyse",
+        "clear-cache:phpstan": "phpstan clear-result-cache"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "test:integration": "Runs all integration tests.",
+        "analyse:phpstan": "Run static analysis",
+        "clear-cache:phpstan": "Clear PHPStan result cache"
+    },
+    "autoload": {
+        "psr-4": {
+            "GlowingBlue\\PasswordStrength\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "GB Password Strength",
+            "category": "feature",
+            "optional-dependencies": [
+                "nearata/flarum-ext-signup-confirm-password",
+                "ianm/twofactor"
+            ],
+            "icon": {
+                "name": "fas fa-user-shield",
+                "backgroundColor": "#00a7e3",
+                "color": "#fff"
+            }
+        }
     }
-  }
 }

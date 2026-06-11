@@ -20,7 +20,7 @@ Low-budget password strength estimation for your forum.
 ## 📥 Installation
 
 ```bash
-composer require glowingblue/password-strength:*
+composer require glowingblue/password-strength:"*"
 ```
 
 ## ♻ Updating
