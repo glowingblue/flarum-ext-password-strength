@@ -5,5 +5,4 @@ parameters:
   level: 6
   paths:
     - extend.php
-    - src
   databaseMigrationsPath: ['migrations']

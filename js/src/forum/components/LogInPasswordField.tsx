@@ -29,17 +29,21 @@ export default class LogInPasswordField extends Component<LogInPasswordFieldAttr
 	view(): Mithril.Children {
 		const { parent_this, showingPassword } = this.attrs;
 
-		return (
-			// This markup is copied from `flarum/components/LogInModal` and then
-			// some things have been added.
-			// !!! Please check for updates regularly !!!
+		const passwordLabel = extractText(t('core.forum.log_in.password_placeholder'));
 
+		return (
+			// This replaces the `password` field rendered by core's `LogInModal`
+			// (flarum/forum/components/LogInModal#fields). Keep the input's
+			// attributes in sync with core; the only additions are the `togglable`
+			// class, the visibility-aware `type`, and the EyeButton.
 			<div className="Form-group PasswordField">
 				<input
 					className="FormControl togglable"
 					name="password"
 					type={showingPassword() ? 'text' : 'password'}
-					placeholder={extractText(t('core.forum.log_in.password_placeholder'))}
+					autocomplete="current-password"
+					placeholder={passwordLabel}
+					aria-label={passwordLabel}
 					bidi={parent_this.password}
 					disabled={parent_this.loading}
 				/>

@@ -59,19 +59,26 @@ export default class SignUpPasswordField extends Component<SignUpPasswordFieldAt
 	view(): Mithril.Children {
 		const { parent_this, showingPassword, hasConfirmFiled, isConfirmFiled } = this.attrs;
 
-		return (
-			// This markup is copied from `flarum/components/LogInModal` and then
-			// some things have been added.
-			// !!! Please check for updates regularly !!!
+		const fieldLabel = isConfirmFiled
+			? extractText(t('nearata-signup-confirm-password.forum.field_placeholder'))
+			: extractText(t('core.forum.sign_up.password_placeholder'));
 
+		return (
+			// This replaces the `password` field rendered by core's `SignUpModal`
+			// (flarum/forum/components/SignUpModal#fields), and nearata's
+			// `nearataConfirmPassword` field. Keep the label/input attributes in
+			// sync with core; the additions are the `togglable` class, the
+			// visibility-aware `type`, strength-based styling, the EyeButton and
+			// the StrengthIndicator.
 			<div className="Form-group PasswordField">
+				<label className="label">{fieldLabel}</label>
 				<input
 					className={`FormControl ${settings('enablePasswordToggle') ? 'togglable' : ''}`}
 					name={isConfirmFiled ? 'confirmPassword' : 'password'}
 					type={showingPassword() ? 'text' : 'password'}
-					placeholder={
-						isConfirmFiled ? t('nearata-signup-confirm-password.forum.field_placeholder') : extractText(t('core.forum.sign_up.password_placeholder'))
-					}
+					autocomplete="new-password"
+					placeholder={fieldLabel}
+					aria-label={fieldLabel}
 					value={isConfirmFiled ? parent_this.confirmPassword() : parent_this.password()}
 					disabled={parent_this.loading}
 					oninput={this.inputHandler.bind(this)}
