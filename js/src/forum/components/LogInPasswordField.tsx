@@ -7,19 +7,26 @@
  * file that was distributed with this source code.
  */
 
-import Component from 'flarum/common/Component';
+import app from 'flarum/forum/app';
+import Component, { ComponentAttrs } from 'flarum/common/Component';
 import extractText from 'flarum/common/utils/extractText';
+import type Mithril from 'mithril';
+import type Stream from 'flarum/common/utils/Stream';
 import EyeButton from './EyeButton';
 
 // Make translation calls shorter
 const t = app.translator.trans.bind(app.translator);
 
-export default class LogInPasswordField extends Component {
-	oninit(vnode) {
-		super.oninit(vnode);
-	}
+export interface LogInPasswordFieldAttrs extends ComponentAttrs {
+	parent_this: {
+		password: Stream<string>;
+		loading: boolean;
+	};
+	showingPassword: Stream<boolean>;
+}
 
-	view() {
+export default class LogInPasswordField extends Component<LogInPasswordFieldAttrs> {
+	view(): Mithril.Children {
 		const { parent_this, showingPassword } = this.attrs;
 
 		return (
@@ -27,10 +34,10 @@ export default class LogInPasswordField extends Component {
 			// some things have been added.
 			// !!! Please check for updates regularly !!!
 
-			<div className='Form-group PasswordField'>
+			<div className="Form-group PasswordField">
 				<input
-					className='FormControl togglable'
-					name='password'
+					className="FormControl togglable"
+					name="password"
 					type={showingPassword() ? 'text' : 'password'}
 					placeholder={extractText(t('core.forum.log_in.password_placeholder'))}
 					bidi={parent_this.password}

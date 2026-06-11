@@ -11,16 +11,6 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Hasan Özbey",
-            "email": "hasanoozbey@gmail.com",
-            "homepage": "https://github.com/the-turk"
-        },
-        {
-            "name": "Rafael Horvat",
-            "email": "rafael.horvat@icloud.com",
-            "role": "Developer"
-        },
-        {
             "name": "GlowingBlue",
             "email": "dev@glowingblue.com",
             "role": "Maintainer"
@@ -42,7 +32,7 @@
     "conflict": {
         "therealsujitk/flarum-ext-show-password": "*"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "prefer-stable": true,
     "scripts": {
         "test": [
@@ -78,9 +68,6 @@
                 "backgroundColor": "#00a7e3",
                 "color": "#fff"
             }
-        },
-        "extiverse": {
-            "discuss": "https://discuss.flarum.org/d/26191"
         }
     }
 }

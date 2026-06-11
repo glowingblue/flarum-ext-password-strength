@@ -1,5 +1,4 @@
 import app from 'flarum/admin/app';
-import Icon from 'flarum/common/components/Icon';
 import Extend from 'flarum/common/extenders';
 import { slug } from '../common';
 
@@ -10,47 +9,49 @@ const prfx = `${slug}.admin.settings`;
 export default [
 	new Extend.Admin()
 		.customSetting(() => (
-			<div className='Form-group'>
-				<label className='psHeading'>{t(`${prfx}.colorOptions`)}</label>
-				<div className='helpText psHelpText'>
-					<Icon name='fas fa-exclamation-circle' />
-					<span>{t(`${prfx}.colorHelp`)}</span>
-				</div>
+			<div className="Form-group">
+				<label className="psHeading">{t(`${prfx}.colorOptions`)}</label>
 			</div>
 		))
 		.setting(() => ({
 			setting: `${slug}.weakColor`,
-			type: 'text',
-			label: t(`${prfx}.weakColor`),
+			type: 'color-preview',
+			label: t(`${prfx}.weakColorHex`),
+			help: t(`${prfx}.weakColorHex_help`),
 		}))
 		.setting(() => ({
 			setting: `${slug}.mediumColor`,
-			type: 'text',
-			label: t(`${prfx}.mediumColor`),
+			type: 'color-preview',
+			label: t(`${prfx}.mediumColorHex`),
+			help: t(`${prfx}.mediumColorHex_help`),
 		}))
 		.setting(() => ({
 			setting: `${slug}.strongColor`,
-			type: 'text',
-			label: t(`${prfx}.strongColor`),
+			type: 'color-preview',
+			label: t(`${prfx}.strongColorHex`),
+			help: t(`${prfx}.strongColorHex_help`),
 		}))
 		.customSetting(() => (
-			<div className='Form-group'>
-				<label className='psHeading'>{t(`${prfx}.otherOptions`)}</label>
+			<div className="Form-group">
+				<label className="psHeading">{t(`${prfx}.otherOptions`)}</label>
 			</div>
 		))
 		.setting(() => ({
 			setting: `${slug}.enableInputColor`,
 			type: 'boolean',
 			label: t(`${prfx}.enableInputColor`),
+			help: t(`${prfx}.enableInputColor_help`),
 		}))
 		.setting(() => ({
 			setting: `${slug}.enableInputBorderColor`,
 			type: 'boolean',
 			label: t(`${prfx}.enableInputBorderColor`),
+			help: t(`${prfx}.enableInputBorderColor_help`),
 		}))
 		.setting(() => ({
 			setting: `${slug}.enablePasswordToggle`,
 			type: 'boolean',
 			label: t(`${prfx}.enablePasswordToggle`),
+			help: t(`${prfx}.enablePasswordToggle_help`),
 		})),
 ];

@@ -8,44 +8,45 @@
  * file that was distributed with this source code.
  */
 
-import app from 'flarum/common/app';
+import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import Stream from 'flarum/common/utils/Stream';
+import type Mithril from 'mithril';
+import type ItemList from 'flarum/common/utils/ItemList';
 import { slug } from '../common';
 import LogInPasswordField from './components/LogInPasswordField';
 import SignUpPasswordField from './components/SignUpPasswordField';
 
+type PasswordModal = {
+	showingPassword: Stream<boolean>;
+	password: Stream<string>;
+	confirmPassword?: Stream<string>;
+	loading: boolean;
+	attrs: { token?: string };
+	oninit(...args: any[]): void;
+	fields(...args: any[]): ItemList<Mithril.Children>;
+};
+
 app.initializers.add(slug, () => {
-	function extendOninit() {
+	function extendOninit(this: PasswordModal) {
 		this.showingPassword = new Stream(false);
 	}
 	extend('flarum/forum/components/LogInModal', 'oninit', extendOninit);
 	extend('flarum/forum/components/SignUpModal', 'oninit', extendOninit);
 
-	extend('flarum/forum/components/LogInModal', 'fields', function (items) {
+	extend('flarum/forum/components/LogInModal', 'fields', function (this: PasswordModal, items: ItemList<Mithril.Children>) {
 		if (app.forum.attribute(`${slug}.enablePasswordToggle`) && items.has('password')) {
-			items.setContent(
-				'password',
-				<LogInPasswordField
-					parent_this={this}
-					showingPassword={this.showingPassword.bind(this)}
-				/>,
-			);
+			items.setContent('password', <LogInPasswordField parent_this={this} showingPassword={this.showingPassword.bind(this)} />);
 		}
 	});
 
-	extend('flarum/forum/components/SignUpModal', 'fields', function (items) {
+	extend('flarum/forum/components/SignUpModal', 'fields', function (this: PasswordModal, items: ItemList<Mithril.Children>) {
 		if (!this.attrs.token) {
-			const hasConfirmFiled =
-				items.has('nearataConfirmPassword') && this.confirmPassword !== undefined;
+			const hasConfirmFiled = items.has('nearataConfirmPassword') && this.confirmPassword !== undefined;
 
 			items.setContent(
 				'password',
-				<SignUpPasswordField
-					parent_this={this}
-					showingPassword={this.showingPassword.bind(this)}
-					hasConfirmFiled={hasConfirmFiled}
-				/>,
+				<SignUpPasswordField parent_this={this} showingPassword={this.showingPassword.bind(this)} hasConfirmFiled={hasConfirmFiled} />
 			);
 
 			if (hasConfirmFiled) {
@@ -56,7 +57,7 @@ app.initializers.add(slug, () => {
 						showingPassword={this.showingPassword.bind(this)}
 						hasConfirmFiled={hasConfirmFiled}
 						isConfirmFiled={true}
-					/>,
+					/>
 				);
 			}
 		}
